@@ -1,36 +1,37 @@
-<script>
-// Exemplo inicial de produtos
-const produtos = [
-{ codigo: "101", nome: "Produto Exemplo 1", imagem: "https://via.placeholder.com/200", link: "#" },
-{ codigo: "102", nome: "Produto Exemplo 2", imagem: "https://via.placeholder.com/200", link: "#" },
-{ codigo: "103", nome: "Produto Exemplo 3", imagem: "https://via.placeholder.com/200", link: "#" }
+// Lista de produtos
+const products = [
+    {
+        code: "001",
+        name: "Produto 001",
+        image: "https://via.placeholder.com/300",
+        link: "https://s.shopee.com.br/qboBzuesC"
+    },
 ];
 
+function loadProducts(filter = "") {
+    const list = document.getElementById("productList");
+    list.innerHTML = "";
 
-const lista = document.getElementById("product-list");
-const busca = document.getElementById("search");
+    const filtered = products.filter(p => p.code.startsWith(filter));
 
+    filtered.forEach(product => {
+        const item = document.createElement("div");
+        item.classList.add("product");
 
-function render(listaProdutos) {
-lista.innerHTML = "";
-listaProdutos.forEach(p => {
-lista.innerHTML += `
-<div class="product">
-<img src="${p.imagem}" alt="${p.nome}">
-<p>${p.nome}</p>
-<a href="${p.link}" target="_blank">Ver produto</a>
-</div>
-`;
-});
+        item.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p>Código: ${product.code}</p>
+            <a href="${product.link}" target="_blank">Ver produto</a>
+        `;
+
+        list.appendChild(item);
+    });
 }
 
-
-render(produtos);
-
-
-busca.addEventListener("input", () => {
-const texto = busca.value.trim();
-const filtrados = produtos.filter(p => p.codigo.startsWith(texto));
-render(filtrados);
+document.getElementById("searchInput").addEventListener("input", function () {
+    loadProducts(this.value);
 });
-</script>
+
+// Carrega tudo ao abrir a página
+loadProducts();
