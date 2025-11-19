@@ -1,36 +1,34 @@
-<script>
-// Exemplo inicial de produtos
 const produtos = [
-{ codigo: "101", nome: "Produto Exemplo 1", imagem: "https://via.placeholder.com/200", link: "#" },
-{ codigo: "102", nome: "Produto Exemplo 2", imagem: "https://via.placeholder.com/200", link: "#" },
-{ codigo: "103", nome: "Produto Exemplo 3", imagem: "https://via.placeholder.com/200", link: "#" }
+    {
+        codigo: "001",
+        nome: "Produto 001",
+        link: "https://s.shopee.com.br/qboBzuesC",
+        imagem: "img/001.jpg" // coloque sua imagem aqui
+    }
 ];
 
+const input = document.getElementById("searchInput");
+const container = document.getElementById("productContainer");
 
-const lista = document.getElementById("product-list");
-const busca = document.getElementById("search");
-
-
-function render(listaProdutos) {
-lista.innerHTML = "";
-listaProdutos.forEach(p => {
-lista.innerHTML += `
-<div class="product">
-<img src="${p.imagem}" alt="${p.nome}">
-<p>${p.nome}</p>
-<a href="${p.link}" target="_blank">Ver produto</a>
-</div>
-`;
-});
+function mostrarProduto(produto) {
+    container.innerHTML = `
+        <div class="card">
+            <img src="${produto.imagem}" alt="${produto.nome}">
+            <h2>${produto.nome}</h2>
+            <p>Código: ${produto.codigo}</p>
+            <a href="${produto.link}" target="_blank">Ver produto</a>
+        </div>
+    `;
 }
 
+input.addEventListener("input", () => {
+    const codigo = input.value.trim();
 
-render(produtos);
+    const produtoEncontrado = produtos.find(p => p.codigo.startsWith(codigo));
 
-
-busca.addEventListener("input", () => {
-const texto = busca.value.trim();
-const filtrados = produtos.filter(p => p.codigo.startsWith(texto));
-render(filtrados);
+    if (produtoEncontrado) {
+        mostrarProduto(produtoEncontrado);
+    } else {
+        container.innerHTML = "";
+    }
 });
-</script>
