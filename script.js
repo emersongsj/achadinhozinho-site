@@ -3,7 +3,7 @@ const products = [
     {
         code: "001",
         name: "Produto 001",
-        image: "https://via.placeholder.com/300",
+        image: "https://down-br.img.susercontent.com/file/br-11134258-7r98o-mbpr92sw6g6132",
         link: "https://s.shopee.com.br/qboBzuesC"
     },
 ];
@@ -35,3 +35,4 @@ document.getElementById("searchInput").addEventListener("input", function () {
 
 // Carrega tudo ao abrir a página
 loadProducts();
+
