@@ -1,49 +1,172 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+:root{
+  --roxo: #381866;
+  --branco: #ffffff;
+  --header-height: 110px;        /* altura da faixa roxa horizontal - ajuste aqui */
+  --sidebar-width: calc(var(--header-height) * 0.25); /* largura das bordas verticais proporcional */
+  --max-content-width: 1200px;
+  --gap: 20px;
 }
 
-header {
-    text-align: center;
-    padding: 40px 20px;
-    background-color: #351465;
-    color: white;
+/* Reset simples */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #f3f3f5;
+  color: #111;
+  /* cria espaço lateral para as bordas verticais (conteúdo centralizado entre elas) */
+  padding-left: var(--sidebar-width);
+  padding-right: var(--sidebar-width);
 }
 
-header input {
-    width: 400px;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
+/* bordas verticais roxas (fixas) */
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  top:0;
+  bottom:0;
+  width:var(--sidebar-width);
+  background:var(--roxo);
+  z-index:0;
+}
+body::before{ left:0; }
+body::after{ right:0; }
+
+/* cabeçalho (faixa horizontal roxa) */
+header{
+  height:var(--header-height);
+  background:var(--roxo);
+  color:var(--branco);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  z-index:2; /* acima das bordas laterais */
+  box-shadow: 0 6px 18px rgba(56,24,102,0.12);
+}
+.header-inner{
+  width:100%;
+  max-width:var(--max-content-width);
+  padding: 12px var(--gap);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
 }
 
-main {
-    padding: 20px;
+/* título */
+header h1{
+  margin:0;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:0.2px;
 }
 
-.card {
-    width: 80%;
-    margin: 0 auto;
-    background-color: white;
-    border: 2px solid #351465;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
+/* campo de busca */
+#searchInput{
+  width:100%;
+  max-width:520px;
+  padding:12px 14px;
+  border-radius:10px;
+  border: 2px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color:var(--branco);
+  outline:none;
+  font-size:15px;
+  transition:box-shadow .15s ease, transform .06s ease;
+}
+#searchInput::placeholder{ color: rgba(255,255,255,0.9) }
+#searchInput:focus{
+  box-shadow: 0 6px 18px rgba(56,24,102,0.12);
+  transform: translateY(-1px);
 }
 
-.card img {
-    width: 200px;
-    border-radius: 10px;
+/* área central branca onde ficam os produtos */
+main{
+  padding: calc(var(--gap) * 1.25) var(--gap) 80px;
+  position:relative;
+  z-index:1;
+}
+.products-grid{
+  margin: 0 auto;
+  max-width: var(--max-content-width);
+  background: var(--branco);
+  padding: var(--gap);
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  display: grid;
+  gap: var(--gap);
+  /* 4 colunas no desktop */
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.card a {
-    display: block;
-    margin-top: 20px;
-    background-color: #351465;
-    color: white;
-    padding: 12px;
-    text-decoration: none;
-    border-radius: 5px;
+/* cartão do produto */
+.product-card{
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid rgba(56,24,102,0.08);
+  padding: 12px;
+  text-align: center;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.product-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(56,24,102,0.12);
+}
+
+/* imagem do produto */
+.product-thumb{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:8px;
+  background: #f0f0f2;
+}
+
+/* texto */
+.product-name{
+  font-size:15px;
+  font-weight:600;
+  color:#222;
+  margin:0;
+}
+.product-code{
+  font-size:13px;
+  color:#666;
+}
+
+/* botão */
+.product-cta{
+  margin-top:auto;
+  display:inline-block;
+  padding:10px 12px;
+  background: var(--roxo);
+  color: var(--branco);
+  text-decoration:none;
+  border-radius:8px;
+  font-weight:700;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width:1100px){
+  .products-grid{ grid-template-columns: repeat(3, 1fr); }
+  :root{ --header-height: 100px; /* reduz header e automaticamente reduz a largura das bordas */ }
+}
+@media (max-width:800px){
+  .products-grid{ grid-template-columns: repeat(2, 1fr); }
+  :root{ --header-height: 90px; }
+  #searchInput{ max-width: 360px; }
+}
+@media (max-width:480px){
+  body{ padding-left: 12px; padding-right: 12px; } /* remove barras laterais em telas bem pequenas */
+  body::before, body::after{ display:none; } /* opcional: esconder bordas verticais no celular */
+  .products-grid{ grid-template-columns: 1fr; padding: 14px; }
+  :root{ --header-height: 84px; }
+  header h1{ font-size:18px; }
+  #searchInput{ width:100%; max-width:100%; }
 }
