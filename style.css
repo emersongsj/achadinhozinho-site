@@ -1,8 +1,8 @@
 :root{
   --roxo: #381866;
   --branco: #ffffff;
-  --header-height: 110px;        /* altura da faixa roxa horizontal - ajuste aqui */
-  --sidebar-width: 110px; /* largura das bordas verticais proporcional */
+  --header-height: 150px;        /* altura da faixa roxa horizontal - ajuste aqui */
+  --sidebar-width: 150px; /* largura das bordas verticais proporcional */
   --max-content-width: 1200px;
   --gap: 20px;
 }
@@ -170,6 +170,7 @@ main{
   header h1{ font-size:18px; }
   #searchInput{ width:100%; max-width:100%; }
 }
+
 
 
 
