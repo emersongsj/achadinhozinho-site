@@ -2,7 +2,7 @@
 const produtos = [
   {
     codigo: "001",
-    nome: "Fone Bluetooth Esportivo",
+    nome: "Arvore de Natal",
     imagem: "img/001.jpg", // ajuste para o caminho real da sua imagem
     link: "https://s.shopee.com.br/qboBzuesC"
   },
@@ -66,3 +66,4 @@ input.addEventListener("input", () => {
 
 // inicial
 renderLista(filtrarPorCodigo(""));
+
