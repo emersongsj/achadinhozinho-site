@@ -42,7 +42,7 @@ function renderLista(lista){
     const card = document.createElement("article");
     card.className = "product-card";
     card.innerHTML = `
-      <img class="product-thumb" src="${p.imagem}" alt="${p.nome}" onerror="this.src='https://via.placeholder.com/400x400?text=Sem+imagem'">
+      <img class="product-thumb" src="${p.imagem}" alt="${p.nome}" onerror="this.src='https://via.placeholder.com/400x800?text=Sem+imagem'">
       <h3 class="product-name">${p.nome}</h3>
       <div class="product-code">Código: ${p.codigo}</div>
       <a class="product-cta" href="${p.link}" target="_blank" rel="noopener">Ver produto</a>
@@ -66,5 +66,6 @@ input.addEventListener("input", () => {
 
 // inicial
 renderLista(filtrarPorCodigo(""));
+
 
 
